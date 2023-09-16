@@ -1,14 +1,18 @@
 const menuEmail = document.querySelector('.navbar-email');
 const desktopMenu = document.querySelector('.desktop-menu');
 const menuHamIcon = document.querySelector('.menu');
+const productDetailCloseIcon = document.querySelector('.product-detail-close');
 const mobileMenu = document.querySelector('.mobile-menu');
 const menuCarritoIcon = document.querySelector('.navbar-shopping-cart');
 const ShoppingCartContainer = document.querySelector('#shoppingCartContainer');
-const cardsContainer = document.querySelector('.cards-container')
+const productDetailContainer = document.querySelector('#productDetail');
+const cardsContainer = document.querySelector('.cards-container');
+
 
 menuEmail.addEventListener('click',toogleDesktopMenu);
 menuHamIcon.addEventListener('click',toogleMobileMenu);
 menuCarritoIcon.addEventListener('click',toogleCarritoAside);
+productDetailCloseIcon.addEventListener('click',closeProductDetailAside);
 
 
 function toogleDesktopMenu(){
@@ -29,6 +33,7 @@ function toogleMobileMenu(){
     if(!isAsideClosed){
         ShoppingCartContainer.classList.add('innactive');
      }
+     closeProductDetailAside();
      mobileMenu.classList.toggle('innactive');
 
 }
@@ -44,10 +49,25 @@ function toogleCarritoAside(){
        mobileMenu.classList.add('innactive');
     }
     ShoppingCartContainer.classList.toggle('innactive');
+
+    const isProductDetailClosed=productDetailContainer.classList.contains('innactive');
+
+    if(!isProductDetailClosed){
+        productDetailContainer.classList.add('innactive');
+    }
     
 
    
 
+}
+
+function openProductDetailAside(){
+    productDetailContainer.classList.remove('innactive');
+
+    ShoppingCartContainer.classList.add('innactive');
+}
+function closeProductDetailAside(){
+    productDetailContainer.classList.add('innactive')
 }
 
 
@@ -137,6 +157,7 @@ function renderProducts(arr){
         
         const productImg=document.createElement('img');
         productImg.setAttribute('src',product.image);
+        productImg.addEventListener('click',openProductDetailAside);
     
         const productInfo=document.createElement('div');
         productInfo.classList.add('product-info');
@@ -175,3 +196,4 @@ function renderProducts(arr){
 }
 
 renderProducts(productList)
+
